@@ -1,2 +1,2 @@
 # sRay
-WIP Basic Ray Tracer for Linux
+A Basic Ray Tracer for Linux that can draw spheres with proper Reflection and Refraction
