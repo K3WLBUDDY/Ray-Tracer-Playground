@@ -1,2 +1,2 @@
 # sRay
-WIP Basic Ray Tracer for Linux Systems using SDL
+WIP Basic Ray Tracer for Linux
