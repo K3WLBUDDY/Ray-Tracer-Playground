@@ -3,6 +3,8 @@
 #include "sVector.h"
 #include <cmath>
 
+
+using namespace sVec;
 class Sphere
 {
 
@@ -36,5 +38,4 @@ class Sphere
         	return true;
     	}
 };
-
 #endif

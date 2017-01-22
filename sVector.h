@@ -1,13 +1,11 @@
 #ifndef SVECTOR_H
 #define SVECTOR_H
 
-
 #include<iostream>
 #include<cmath>
 
-
-//namespace sVec
-//{
+namespace sVec
+{
 
 	template<typename T>
 	class Vec3
@@ -94,5 +92,5 @@
 	};
 
 typedef Vec3<float> Vec3f;
-//} 
+} 
 #endif
