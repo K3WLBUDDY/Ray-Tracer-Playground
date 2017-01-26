@@ -1,10 +1,12 @@
 #ifndef SPHERE_H
 #define SPHERE_H
+
 #include "sVector.h"
 #include <cmath>
 
 
 using namespace sVec;
+
 class Sphere
 {
 
