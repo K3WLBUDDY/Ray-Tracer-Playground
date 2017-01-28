@@ -148,7 +148,8 @@ void render(const std::vector<Sphere> &spheres)
 
 int main(int argc, char **argv)
 {
-    srand48(13);
+
+    //srand48(13);
 
     std::vector<Sphere> spheres;
     
