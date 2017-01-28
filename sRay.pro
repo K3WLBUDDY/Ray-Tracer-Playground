@@ -28,6 +28,7 @@ SOURCES += main.cpp\
 
 HEADERS  += sray.h \
     sphere.h \
-    sVector.h
+    sVector.h \
+    combobox.h
 
 FORMS    += sray.ui

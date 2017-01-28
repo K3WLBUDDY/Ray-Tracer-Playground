@@ -2,6 +2,7 @@
 #define SRAY_H
 
 #include <QWidget>
+#include "combobox.h"
 #include "sVector.h"
 #include "sphere.h"
 #include <cstdlib>
@@ -36,6 +37,11 @@ private:
     Vec3f trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<Sphere> &spheres, const int &depth);
 
     void render(const std::vector<Sphere> &spheres);
+
+private slots:
+
+    void comboBoxActive();
+    void comboBoxChange();
 
 };
 

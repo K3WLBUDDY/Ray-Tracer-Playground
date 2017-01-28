@@ -1,6 +1,8 @@
 #include "sray.h"
 #include <QApplication>
 
+
+//Check for MS Visual C++ Compiler
 #if defined _MSC_VER
 
     #include <algorithm>
