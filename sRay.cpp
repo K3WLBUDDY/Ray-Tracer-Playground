@@ -9,7 +9,7 @@
 
 #if defined _WIN64 || _WIN32
 
-	#include <algorithm.h>
+	#include <algorithm>
 	#define M_PI 3.141592653589793
 	#define INFINITY 1e8
 
