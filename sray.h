@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "combobox.h"
+#include "textedit.h"
 #include "sVector.h"
 #include "sphere.h"
 #include <cstdlib>
@@ -41,7 +42,9 @@ private:
 private slots:
 
     void comboBoxActive();
-    void comboBoxChange();
+    //void comboBoxChange();
+
+    void changeTextEdit(int index);
 
 };
 

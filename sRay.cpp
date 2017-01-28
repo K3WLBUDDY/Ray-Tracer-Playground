@@ -158,5 +158,71 @@ void sRay::render(const std::vector<Sphere> &spheres)
     delete [] image;
 }
 
+void sRay::comboBoxActive()
+{
+    ComboBox *activeBox = qobject_cast<ComboBox *>(sender());
+    int index = activeBox->currentIndex();
+
+    changeTextEdit(index);
+}
+
+/*
+void sRay::comboBoxChange()
+{
+    ComboBox *activeBox = qobject_cast<ComboBox *>(sender());
+    int index = activeBox->currentIndex();
+
+    changeTextEdit(index);
+}
+*/
+
+void sRay::changeTextEdit(int index)
+{
+    TextEdit *text_x = qobject_cast<TextEdit *>(sender());
+    TextEdit *text_y = qobject_cast<TextEdit *>(sender());
+    TextEdit *text_z = qobject_cast<TextEdit *>(sender());
+
+    TextEdit *text_z = ui->textEdit;
+
+    switch(index)
+    {
+        case 1:
+
+            text_x->setPlainText();
+            text_y->setPlainText();
+            text_z->setPlainText();
+        break;
+
+        case 2:
+            text_x->setPlainText();
+            text_y->setPlainText();
+            text_z->setPlainText();
+        break;
+
+        case 3:
+
+            text_x->setPlainText();
+            text_y->setPlainText();
+            text_z->setPlainText();
+
+        break;
+
+        case 4:
+
+            text_x->setPlainText();
+            text_y->setPlainText();
+            text_z->setPlainText();
+
+        break;
+
+        case 5:
+
+            text_z->setPlainText();
+            text_y->setPlainText();
+            text_z->setPlainText();
+
+    }
+}
+
 
 

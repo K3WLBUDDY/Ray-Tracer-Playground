@@ -9,7 +9,7 @@ class ComboBox : public QComboBox
 
 public:
 
-    explicit ComboBox(const int &currentIndex);
+    explicit ComboBox(const int &currentIndex, QWidget *parent = 0);
 };
 
 #endif // COMBOBOX_H

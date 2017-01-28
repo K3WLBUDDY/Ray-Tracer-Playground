@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>265</width>
-    <height>300</height>
+    <height>314</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -156,19 +156,45 @@
     <string>Render</string>
    </property>
   </widget>
-  <zorder>comboBox</zorder>
-  <zorder>label</zorder>
-  <zorder>comboBox</zorder>
-  <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
-  <zorder>lineEdit</zorder>
-  <zorder>label_4</zorder>
-  <zorder>lineEdit_2</zorder>
-  <zorder>label_5</zorder>
-  <zorder>lineEdit_3</zorder>
-  <zorder>pushButton</zorder>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>activated(int)</signal>
+   <receiver>sRay</receiver>
+   <slot>comboBoxActive()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>31</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>207</x>
+     <y>55</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>sRay</receiver>
+   <slot>comboBoxActive()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>150</x>
+     <y>33</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>112</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>comboBoxActive()</slot>
+  <slot>comboBoxChange()</slot>
+ </slots>
 </ui>
