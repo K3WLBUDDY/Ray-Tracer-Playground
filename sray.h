@@ -27,7 +27,7 @@ public:
     explicit sRay(QWidget *parent = 0);
     ~sRay();
     void init();
-    void render();
+    int render();
 
 private:
     std::vector<Sphere> spheres;

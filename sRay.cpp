@@ -139,7 +139,7 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
 
 ///TODO - Use libpng to render .png instead of .ppm images
 ///TODO - Get Dynamic input for image width and height
-void sRay::render()
+int sRay::render()
 {
     unsigned width = 1920, height = 1080;
     Vec3f *image = new Vec3f[width * height], *pixel = image;
@@ -166,6 +166,8 @@ void sRay::render()
 
     ofs.close();
     delete [] image;
+
+    return 1;
 }
 
 
@@ -207,7 +209,16 @@ void sRay::changeLineEdit(int index)
 
 void sRay::renderClicked()
 {
-    render();
+    int finish=render(); // Generates a warning. For the timebeing.
+
+    ///TODO - Get this abomination working
+    //while(finish!=1)
+    //{
+    //  ui->pushButton->setEnabled(false);
+    //}
+
+    ///TODO - Get dynamic input for the file name and location
+
 }
 
 

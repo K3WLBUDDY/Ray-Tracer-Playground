@@ -20,18 +20,11 @@ int main(int argc, char *argv[])
     //Initializes an Object for the core Class
     sRay s;
 
-
-
-    ///TOFIX - Output is rendered before the GUI is drawn.
-
     //Initializes the std::vector to hold the spheres
     s.init();
 
     //GUI is drawn now
     s.show();
-
-    //Image is rendered
-    //s.render();
 
     //Begins event loop
     return a.exec();
