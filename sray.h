@@ -27,6 +27,7 @@ public:
     explicit sRay(QWidget *parent = 0);
     ~sRay();
     void init();
+    void render();
 
 private:
     std::vector<Sphere> spheres;
@@ -37,7 +38,7 @@ private:
 
     Vec3f trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<Sphere> &spheres, const int &depth);
 
-    void render(const std::vector<Sphere> &spheres);
+
 
 
     ///TODO - Uncomplicate the Function Name
@@ -48,6 +49,8 @@ private slots:
     void comboBoxActive();
 
     void changeLineEdit(int index);
+
+    void renderClicked();
 
 };
 

@@ -24,11 +24,14 @@ int main(int argc, char *argv[])
 
     ///TOFIX - Output is rendered before the GUI is drawn.
 
-    //Starts the Ray Tracing code and generates a .ppm file **before the GUI is drawn**
+    //Initializes the std::vector to hold the spheres
     s.init();
 
     //GUI is drawn now
     s.show();
+
+    //Image is rendered
+    //s.render();
 
     //Begins event loop
     return a.exec();

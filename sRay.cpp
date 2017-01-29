@@ -34,8 +34,6 @@ void sRay::init()
     spheres.push_back(Sphere(Vec3f(-8.0,     -4, -25), 2 ,Vec3f(0.00, 1.00, 0.00), 1, 0.0));//green
     spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));//light
 
-    render(spheres);
-
 }
 
 float sRay::mix(const float &a, const float &b, const float &mix)
@@ -140,7 +138,8 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
 //Function to Render the final .ppm image
 
 ///TODO - Use libpng to render .png instead of .ppm images
-void sRay::render(const std::vector<Sphere> &spheres)
+///TODO - Get Dynamic input for image width and height
+void sRay::render()
 {
     unsigned width = 1920, height = 1080;
     Vec3f *image = new Vec3f[width * height], *pixel = image;
@@ -160,7 +159,7 @@ void sRay::render(const std::vector<Sphere> &spheres)
         }
     }
 
-    std::ofstream ofs("./render_qt.ppm", std::ios::out | std::ios::binary);
+    std::ofstream ofs("./render_qt2.ppm", std::ios::out | std::ios::binary);
     ofs << "P6\n" << width << " " << height << "\n255\n";
     for (unsigned i = 0; i < width * height; ++i)
     ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) << (unsigned char)(std::min(float(1), image[i].y) * 255) << (unsigned char)(std::min(float(1), image[i].z) * 255);
@@ -204,6 +203,11 @@ void sRay::changeLineEdit(int index)
             ui->lineEdit->setText(Vec3fToQString(index, 'x'));
             ui->lineEdit_2->setText(Vec3fToQString(index, 'y'));
             ui->lineEdit_3->setText(Vec3fToQString(index, 'z'));
+}
+
+void sRay::renderClicked()
+{
+    render();
 }
 
 

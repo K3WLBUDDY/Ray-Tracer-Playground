@@ -202,9 +202,26 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>sRay</receiver>
+   <slot>renderClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>127</x>
+     <y>249</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>213</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>comboBoxActive()</slot>
   <slot>comboBoxChange()</slot>
+  <slot>renderClicked()</slot>
  </slots>
 </ui>
