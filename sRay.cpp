@@ -7,7 +7,7 @@ sRay::sRay(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //Limits the Input to Floating Point Numbers
+    //Limits the Input to Floating Point Numbers with one decimal point
     ui->lineEdit->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_2->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_3->setValidator(new QDoubleValidator(-100, 100, 1, this));
@@ -18,8 +18,14 @@ sRay::~sRay()
     delete ui;
 }
 
+
+//Initializes the Spheres.
 void sRay::init()
 {
+
+    ///TODO - Dynamically get input for all the features of the spheres.
+    ///TODO - Add a way to alter the number of spheres being drawn
+
     spheres.push_back(Sphere(Vec3f( 0.0, -10004, -20), 2,Vec3f(1.00, 0.32, 0.36), 0, 0.0));
     spheres.push_back(Sphere(Vec3f( 0.0,      0, -25),     2, Vec3f(1.00, 0.32, 0.36), 0, 0.5));//red
     spheres.push_back(Sphere(Vec3f( 8.0,     -4, -25),     2, Vec3f(0.90, 0.76, 0.46), 1, 0.0));//yellow
@@ -37,6 +43,7 @@ float sRay::mix(const float &a, const float &b, const float &mix)
     return b * mix + a * (1 - mix);
 }
 
+//Function to trace the rays
 Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<Sphere> &spheres, const int &depth)
 {
     float tnear = INFINITY;
@@ -129,6 +136,10 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
     return surfaceColor + sphere->emissionColor;
 }
 
+
+//Function to Render the final .ppm image
+
+///TODO - Use libpng to render .png instead of .ppm images
 void sRay::render(const std::vector<Sphere> &spheres)
 {
     unsigned width = 1920, height = 1080;
@@ -158,33 +169,35 @@ void sRay::render(const std::vector<Sphere> &spheres)
     delete [] image;
 }
 
+
+//Slot for when the Combo Box is Active
 void sRay::comboBoxActive()
 {
+
+    //Gets the current active index of the Combo Box and stores it in an integer variable
     int index = ui->comboBox->currentIndex();
 
+    //Calls the Slot that updates the Line Edit boxes
     changeLineEdit(index);
 }
 
-/*
-void sRay::comboBoxChange()
-{
-    ComboBox *activeBox = qobject_cast<ComboBox *>(sender());
-    int index = activeBox->currentIndex();
-
-    changeTextEdit(index);
-}
-*/
-
+//Function to convert Vec3 to QString based on the coordinated
 QString sRay::Vec3fToQString(int index, char coordinate)
 {
     if(coordinate=='x')
+
+        /* Refers to the X coordinate of the center of the Sphere present
+        in the "index" position of the vector. Thank you OOPS :)*/
+
         return(QString::number(spheres[index].center.x));
+
     else if(coordinate=='y')
         return(QString::number(spheres[index].center.y));
     else
         return(QString::number(spheres[index].center.z));
 }
 
+//Slot to set the values for the Line Edit Widgets
 void sRay::changeLineEdit(int index)
 {
 

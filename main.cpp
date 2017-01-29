@@ -16,10 +16,20 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    //Initializes an Object for the core Class
     sRay s;
 
+
+
+    ///TOFIX - Output is rendered before the GUI is drawn.
+
+    //Starts the Ray Tracing code and generates a .ppm file **before the GUI is drawn**
     s.init();
+
+    //GUI is drawn now
     s.show();
 
+    //Begins event loop
     return a.exec();
 }

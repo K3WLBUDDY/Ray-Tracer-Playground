@@ -31,7 +31,7 @@ public:
 private:
     std::vector<Sphere> spheres;
 
-    Ui::sRay *ui;
+    Ui::sRay *ui; //THIS POINTER IS A FRIGGING GODSEND
 
     float mix(const float &a, const float &b, const float &mix);
 
@@ -39,12 +39,13 @@ private:
 
     void render(const std::vector<Sphere> &spheres);
 
+
+    ///TODO - Uncomplicate the Function Name
     QString Vec3fToQString(int index, char coordinate);
 
 private slots:
 
     void comboBoxActive();
-    //void comboBoxChange();
 
     void changeLineEdit(int index);
 
