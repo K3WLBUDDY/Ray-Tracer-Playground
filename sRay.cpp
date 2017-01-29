@@ -160,10 +160,9 @@ void sRay::render(const std::vector<Sphere> &spheres)
 
 void sRay::comboBoxActive()
 {
-    ComboBox *activeBox = qobject_cast<ComboBox *>(sender());
-    int index = activeBox->currentIndex();
+    int index = ui->comboBox->currentIndex();
 
-    changeTextEdit(index);
+    changeLineEdit(index);
 }
 
 /*
@@ -176,52 +175,22 @@ void sRay::comboBoxChange()
 }
 */
 
-void sRay::changeTextEdit(int index)
+QString sRay::Vec3fToQString(int index, char coordinate)
 {
-    TextEdit *text_x = qobject_cast<TextEdit *>(sender());
-    TextEdit *text_y = qobject_cast<TextEdit *>(sender());
-    TextEdit *text_z = qobject_cast<TextEdit *>(sender());
+    if(coordinate=='x')
+        return(QString::number(spheres[index].center.x));
+    else if(coordinate=='y')
+        return(QString::number(spheres[index].center.y));
+    else
+        return(QString::number(spheres[index].center.z));
+}
 
-    TextEdit *text_z = ui->textEdit;
+void sRay::changeLineEdit(int index)
+{
 
-    switch(index)
-    {
-        case 1:
-
-            text_x->setPlainText();
-            text_y->setPlainText();
-            text_z->setPlainText();
-        break;
-
-        case 2:
-            text_x->setPlainText();
-            text_y->setPlainText();
-            text_z->setPlainText();
-        break;
-
-        case 3:
-
-            text_x->setPlainText();
-            text_y->setPlainText();
-            text_z->setPlainText();
-
-        break;
-
-        case 4:
-
-            text_x->setPlainText();
-            text_y->setPlainText();
-            text_z->setPlainText();
-
-        break;
-
-        case 5:
-
-            text_z->setPlainText();
-            text_y->setPlainText();
-            text_z->setPlainText();
-
-    }
+            ui->lineEdit->setText(Vec3fToQString(index, 'x'));
+            ui->lineEdit_2->setText(Vec3fToQString(index, 'y'));
+            ui->lineEdit_3->setText(Vec3fToQString(index, 'z'));
 }
 
 

@@ -2,8 +2,8 @@
 #define SRAY_H
 
 #include <QWidget>
-#include "combobox.h"
-#include "textedit.h"
+
+
 #include "sVector.h"
 #include "sphere.h"
 #include <cstdlib>
@@ -39,12 +39,14 @@ private:
 
     void render(const std::vector<Sphere> &spheres);
 
+    QString Vec3fToQString(int index, char coordinate);
+
 private slots:
 
     void comboBoxActive();
     //void comboBoxChange();
 
-    void changeTextEdit(int index);
+    void changeLineEdit(int index);
 
 };
 

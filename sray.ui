@@ -60,6 +60,16 @@
      <string>Sphere 5</string>
     </property>
    </item>
+   <item>
+    <property name="text">
+     <string>Sphere 6</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Sphere 7</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">

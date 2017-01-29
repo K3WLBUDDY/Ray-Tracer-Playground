@@ -24,14 +24,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        sray.cpp \
-    combobox.cpp \
-    textedit.cpp
+        sray.cpp
 
 HEADERS  += sray.h \
     sphere.h \
-    sVector.h \
-    combobox.h \
-    textedit.h
+    sVector.h
 
 FORMS    += sray.ui

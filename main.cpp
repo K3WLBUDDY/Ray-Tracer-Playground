@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     sRay s;
+
     s.init();
     s.show();
 
