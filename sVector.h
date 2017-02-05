@@ -56,6 +56,13 @@ namespace sVec
   			return Vec3<T>(x*v.x, y*v.y, z*v.z);
   		}
 
+      /*
+      inline Vec3<T> operator * (const T &f, const Vec3<T> &v) 
+      {
+        return Vec3<T>(v.x*t, v.y*t, v.z*t);
+      }
+      */
+
   		inline Vec3<T> operator + (const Vec3<T> &v) const
   		{
   			return Vec3<T>(x+v.x, y+v.y, z+v.z);
