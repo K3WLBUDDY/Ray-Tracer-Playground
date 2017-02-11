@@ -34,7 +34,7 @@ namespace sVec
 
   		inline Vec3(T x_val, T y_val, T z_val): x(x_val), y(y_val), z(z_val) {}
 
-  		inline Vec3& normalize()
+  		inline Vec3& normalize() 
   		{	
 
   			T nor_sq = length_sq();
@@ -45,6 +45,11 @@ namespace sVec
   			}
   			return *this;
   		}
+
+      inline friend Vec3 unit_vector(Vec3<T> v)
+      {
+        return v/v.length();
+      }
 
  		  inline Vec3<T> operator * (const T &f) const
   		{
