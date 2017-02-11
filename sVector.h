@@ -110,6 +110,11 @@ namespace sVec
  			  return x * v.x + y * v.y + z * v.z; 
  		  } 
 
+      inline friend T dot(const Vec3<T> &a, const Vec3<T> &b)
+      {
+        return a.x*b.x + a.y*b.y + a.z*b.z;
+      }
+
       inline T cross(const Vec3<T> &v)const
       {
         return Vec3<T>((y*v.z-z*v.y), (-(x*v.z-z*v.x)), (x*v.y-y*v.x));
