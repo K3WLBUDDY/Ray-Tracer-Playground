@@ -3,7 +3,12 @@
 #include "sVector.h"
 #include "ray.h"
 #include "sphere.h"
+#include "hit_table_list.h"
+#include "hit_table.h"
+#include <cfloat>
 
+
+/*
 float hit_sphere(const Vec3f& center, float radius, const ray& r)
 {
 	Vec3f oc = r.origin() - center;
@@ -17,20 +22,28 @@ float hit_sphere(const Vec3f& center, float radius, const ray& r)
 	else
 		return(-b - sqrt(d))/(2.0*a);
 }
+*/
 
-sVec::Vec3f color(const ray &r)
+sVec::Vec3f color(const ray &r, hit_table *world)
 {
-	float t = (hit_sphere(Vec3f(0,0,-1), 0.5, r));
-	if(t>0.0)
+	hit_record rec;
+	//float t = (hit_sphere(Vec3f(0,0,-1), 0.5, r));
+	if(world->hit(r,0.0,FLT_MAX, rec))
 	{
-		sVec::Vec3f N = unit_vector(r.currentPos(t) - sVec::Vec3f(0,0,-1));
-		return sVec::Vec3f(N.x+1, N.y+1, N.z+1)*0.5;
+		//sVec::Vec3f N = unit_vector(r.currentPos(t) - sVec::Vec3f(0,0,-1));
+		//return sVec::Vec3f(N.x+1, N.y+1, N.z+1)*0.5;
+		return sVec::Vec3f(rec.normal.x+1, rec.normal.y+1, rec.normal.z+1)*0.5;
 	}
-	sVec::Vec3f unit_Dir = unit_vector(r.direction());
-	t = 0.5*(unit_Dir.y+1.0);
+	else
+	{
+		sVec::Vec3f unit_Dir = unit_vector(r.direction());
+		float t = 0.5*(unit_Dir.y+1.0);
+		return sVec::Vec3f(1.0, 1.0, 1.0)*(1.0-t)+ sVec::Vec3f(0.5,0.7,1.0)*t;
+	}
+	
 
 	//Standard Linear Interpolation. Research the fuck about it.
-	return sVec::Vec3f(1.0, 1.0, 1.0)*(1.0-t)+ sVec::Vec3f(0.5,0.7,1.0)*t;
+	
 }
 
 int main()
@@ -42,9 +55,12 @@ int main()
 	sVec::Vec3f vertical(0.0, 2.0, 0.0);
 	sVec::Vec3f horizontal(4.0, 0.0, 0.0);
 	sVec::Vec3f lower_left(-2.0, -1.0, -1.0);
+	hit_table *list[2];
+	list[0] = new sphere(sVec::Vec3f(0,0,-1), 0.5);
+	list[1] = new sphere(sVec::Vec3f(0,-100.5,-1), 100);
+	hit_table *world = new hit_table_list(list,2);
 
-
-	std::ofstream ofs("./sphere_normal.ppm",std::ios::out | std::ios::binary);
+	std::ofstream ofs("./sphere2_normal.ppm",std::ios::out | std::ios::binary);
 
 	ofs<<"P3\n"<<width<<" "<<height<<"\n255\n";
 
@@ -60,7 +76,7 @@ int main()
 			float v= float(j)/float(height);
 
 			ray r(origin, lower_left + horizontal*u + vertical*v);
-			sVec::Vec3f col = color(r);
+			//sVec::Vec3f col = color(r);
 			//color.z = 0.5;
 
 			/*
@@ -68,6 +84,9 @@ int main()
 			float g=float(j)/float(height);
 			float b=0.5;
 			*/
+
+			sVec::Vec3f p = r.currentPos(2.0);
+			sVec::Vec3f col = color(r, world);
 
 			rgb.x=int(255.99*col.x);
 			rgb.y=int(255.99*col.y);
