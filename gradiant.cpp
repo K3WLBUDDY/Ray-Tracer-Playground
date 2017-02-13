@@ -4,7 +4,7 @@
 #include "ray.h"
 #include "sphere.h"
 
-bool hit_sphere(const Vec3f& center, float radius, const ray& r)
+float hit_sphere(const Vec3f& center, float radius, const ray& r)
 {
 	Vec3f oc = r.origin() - center;
 
@@ -12,15 +12,22 @@ bool hit_sphere(const Vec3f& center, float radius, const ray& r)
 	float b = 2.0*dot(oc, r.direction());
 	float c = dot(oc, oc) - radius*radius;
 	float d = b*b -4*a*c;
-	return(d>0);
+	if(d<0)
+		return -1;
+	else
+		return(-b - sqrt(d))/(2.0*a);
 }
 
 sVec::Vec3f color(const ray &r)
 {
-	if (hit_sphere(Vec3f(0,0,-1), 0.5, r))
-		return Vec3f(1,0,0);
+	float t = (hit_sphere(Vec3f(0,0,-1), 0.5, r));
+	if(t>0.0)
+	{
+		sVec::Vec3f N = unit_vector(r.currentPos(t) - sVec::Vec3f(0,0,-1));
+		return sVec::Vec3f(N.x+1, N.y+1, N.z+1)*0.5;
+	}
 	sVec::Vec3f unit_Dir = unit_vector(r.direction());
-	float t = 0.5*(unit_Dir.y+1.0);
+	t = 0.5*(unit_Dir.y+1.0);
 
 	//Standard Linear Interpolation. Research the fuck about it.
 	return sVec::Vec3f(1.0, 1.0, 1.0)*(1.0-t)+ sVec::Vec3f(0.5,0.7,1.0)*t;
@@ -37,7 +44,7 @@ int main()
 	sVec::Vec3f lower_left(-2.0, -1.0, -1.0);
 
 
-	std::ofstream ofs("./gradiant_sphere.ppm",std::ios::out | std::ios::binary);
+	std::ofstream ofs("./sphere_normal.ppm",std::ios::out | std::ios::binary);
 
 	ofs<<"P3\n"<<width<<" "<<height<<"\n255\n";
 
