@@ -8,13 +8,27 @@
 #include <cfloat>
 #include "camera.h"
 
+sVec::Vec3f random_in_unit_sphere()
+{
+	sVec::Vec3f p;
+	do
+	{
+		p = sVec::Vec3f(drand48(), drand48(), drand48()) - sVec::Vec3f(1,1,1);
+	}while(p.length_sq()>=1.0);
+
+	return p;
+}
+
 
 sVec::Vec3f color(const ray &r, hit_table *world)
 {
 	hit_record rec;
 	if(world->hit(r,0.0,FLT_MAX, rec))
-
-		return sVec::Vec3f(rec.normal.x+1, rec.normal.y+1, rec.normal.z+1)*0.5;
+	{
+		sVec::Vec3f target = rec.p + rec.normal + random_in_unit_sphere();
+		return color(ray(rec.p,  target-rec.p), world)*0.5;
+	}
+		//return sVec::Vec3f(rec.normal.x+1, rec.normal.y+1, rec.normal.z+1)*0.5;
 
 	else
 	{
@@ -41,7 +55,7 @@ int main()
 	hit_table *world = new hit_table_list(list,2);
 
 	//Creating a File Stream
-	std::ofstream ofs("./sphere3_normal_AA.ppm",std::ios::out | std::ios::binary);
+	std::ofstream ofs("./sphere4_diffuse_AA.ppm",std::ios::out | std::ios::binary);
 
 	ofs<<"P3\n"<<width<<" "<<height<<"\n255\n";
 
@@ -64,6 +78,7 @@ int main()
 				sVec::Vec3f p =r.currentPos(2.0);
 				col+=color(r,world);
 			}
+			
 			col = col/float(100);
 
 			//Gets the Final RGB Value for the Pixels

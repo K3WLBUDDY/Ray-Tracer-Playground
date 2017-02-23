@@ -15,8 +15,8 @@ Cross Product : Geometrically the area formed by a parallelogram
 #ifndef SVECTOR_H
 #define SVECTOR_H
 
-#include<iostream>
-#include<cmath>
+#include <iostream>
+#include <cmath>
 
 namespace sVec
 {
@@ -71,6 +71,13 @@ namespace sVec
   		{
   			return Vec3<T>(x-v.x, y-v.y, z-v.z);
   		}
+
+      /*
+      inline Vec3<T> operator - (const T &f, const Vec3<T> &v)
+      {
+        return 
+      }
+      */
 
   		inline Vec3<T> operator -() const
  		  {
