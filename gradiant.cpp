@@ -23,7 +23,7 @@ sVec::Vec3f random_in_unit_sphere()
 sVec::Vec3f color(const ray &r, hit_table *world)
 {
 	hit_record rec;
-	if(world->hit(r,0.0,FLT_MAX, rec))
+	if(world->hit(r,0.001,FLT_MAX, rec))
 	{
 		sVec::Vec3f target = rec.p + rec.normal + random_in_unit_sphere();
 		return color(ray(rec.p,  target-rec.p), world)*0.5;
@@ -55,7 +55,7 @@ int main()
 	hit_table *world = new hit_table_list(list,2);
 
 	//Creating a File Stream
-	std::ofstream ofs("./sphere4_diffuse_AA.ppm",std::ios::out | std::ios::binary);
+	std::ofstream ofs("./sphere5_diffuse_AA.ppm",std::ios::out | std::ios::binary);
 
 	ofs<<"P3\n"<<width<<" "<<height<<"\n255\n";
 
@@ -80,6 +80,8 @@ int main()
 			}
 			
 			col = col/float(100);
+
+			col = sVec::Vec3f(sqrt(col.x), sqrt(col.y), sqrt(col.z));
 
 			//Gets the Final RGB Value for the Pixels
 			rgb.x=int(255.99*col.x);
