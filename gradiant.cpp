@@ -7,31 +7,25 @@
 #include "hit_table.h"
 #include <cfloat>
 #include "camera.h"
+#include "material.h"
 
 
-//Generating a Randon Point in a Unit Sphere
-sVec::Vec3f random_in_unit_sphere()
-{
-	sVec::Vec3f p;
-	do
-	{
-		p = sVec::Vec3f(drand48(), drand48(), drand48()) - sVec::Vec3f(1,1,1);
-	}while(p.length_sq()>=1.0);//Checks if the Generated Point is inside the Unit Sphere
-
-	return p;
-}
-
-
-sVec::Vec3f color(const ray &r, hit_table *world)
+sVec::Vec3f color(const ray &r, hit_table *world, int depth)
 {
 	hit_record rec;
 	if(world->hit(r,0.001,FLT_MAX, rec))
 	{
-		//return 0.5*vec3(rec.normal.x()+1, rec.normal.y()+1, rec.normal.z()+1);
 
-		//Diffuse Material
-		sVec::Vec3f target = rec.p + rec.normal + random_in_unit_sphere();
-		return color(ray(rec.p,  target-rec.p), world)*0.5;
+		ray scattered;
+		Vec3f attenuation;
+
+		if(depth<50 && rec.mat->scatter(r,rec,attenuation,scattered))
+		{
+			return attenuation*color(scattered, world, depth+1);
+		}
+
+		else
+			return sVec::Vec3f(0,0,0);
 	}
 
 	else
@@ -51,16 +45,18 @@ int main()
 
 	sVec::Vec3<int> rgb;
 
-	hit_table *list[2];//Initializing a list of Objects containing 2 entries
+	hit_table *list[4];//Initializing a list of Objects containing 2 entries
 
 
 	//Filling the list with 2 Spheres
-	list[0] = new sphere(sVec::Vec3f(0,0,-1), 0.5);
-	list[1] = new sphere(sVec::Vec3f(0,-100.5,-1), 100);
+	list[0] = new sphere(sVec::Vec3f(0,0,-1), 0.5, new lambertian(sVec::Vec3f(0.8, 0.8, 0.3)));
+	list[1] = new sphere(sVec::Vec3f(0,-100.5,-1), 100, new lambertian(sVec::Vec3f(0.8, 0.8, 0.0)));
+	list[2] = new sphere(sVec::Vec3f(1, 0, -1), 0.5, new metal(sVec::Vec3f(0.8, 0.6, 0.2)));
+	list[3] = new sphere(sVec::Vec3f(-1, 0, -1), 0.5, new metal(sVec::Vec3f(0.8, 0.8, 0.8)));
 
-	hit_table *world = new hit_table_list(list,2);// Initializing a for Objects that have been hit by the ray
+	hit_table *world = new hit_table_list(list,4);// Initializing a for Objects that have been hit by the ray
 	//Creating a File Stream
-	std::ofstream ofs("./sphere5_diffuse_AA.ppm",std::ios::out | std::ios::binary);
+	std::ofstream ofs("./sphere6_metal.ppm",std::ios::out | std::ios::binary);
 
 	ofs<<"P3\n"<<width<<" "<<height<<"\n255\n";
 
@@ -82,7 +78,7 @@ int main()
 				float v = float(j+drand48())/float(height);
 				ray r =cam.get_ray(u,v);
 				sVec::Vec3f p =r.currentPos(2.0);
-				col+=color(r,world); //Adds up all the colours obtained from the Sample Points
+				col+=color(r,world,0); //Adds up all the colours obtained from the Sample Points
 			}
 
 			col = col/float(100);//Average of the Colours

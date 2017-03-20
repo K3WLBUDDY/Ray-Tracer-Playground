@@ -4,6 +4,7 @@
 #include "sVector.h"
 #include <cmath>
 #include "hit_table.h"
+#include "material.h"
 
 
 using namespace sVec;
@@ -13,9 +14,10 @@ class sphere: public hit_table
 public:
     Vec3f center;
     float radius;
+    material *mat;
 
     sphere(){};
-    sphere(Vec3f c, float r): center(c), radius(r) {};
+    sphere(Vec3f c, float r, material* m): center(c), radius(r), mat(m) {};
     virtual bool hit(const ray &r, float tmin, float tmax, hit_record& rec) const;
 
 };
