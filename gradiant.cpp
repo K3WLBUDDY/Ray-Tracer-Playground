@@ -9,14 +9,14 @@
 #include "camera.h"
 
 
-//Diffuse Material
+//Generating a Randon Point in a Unit Sphere
 sVec::Vec3f random_in_unit_sphere()
 {
 	sVec::Vec3f p;
 	do
 	{
 		p = sVec::Vec3f(drand48(), drand48(), drand48()) - sVec::Vec3f(1,1,1);
-	}while(p.length_sq()>=1.0);
+	}while(p.length_sq()>=1.0);//Checks if the Generated Point is inside the Unit Sphere
 
 	return p;
 }
@@ -87,7 +87,7 @@ int main()
 
 			col = col/float(100);//Average of the Colours
 
-			col = sVec::Vec3f(sqrt(col.x), sqrt(col.y), sqrt(col.z));
+			col = sVec::Vec3f(sqrt(col.x), sqrt(col.y), sqrt(col.z));//Gamma 2 Correction
 
 			//Gets the Final RGB Value for the Pixels
 			rgb.x=int(255.99*col.x);

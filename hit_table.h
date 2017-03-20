@@ -6,7 +6,8 @@
 struct hit_record
 {
 	float t;
-	sVec::Vec3f p, normal;
+	sVec::Vec3f p;//Hit Point on the Object
+	sVec::Vec3f normal;//Normal from P
 
 };
 
